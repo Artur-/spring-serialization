@@ -1,5 +1,6 @@
 package de.ituv.demo.vaadin.login.ui;
 
+import org.jdal.annotation.SerializableProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,12 +35,14 @@ public class LoginView extends VerticalLayout implements View {
     private static final long serialVersionUID = -4430276235082912377L;
 
     public static final String NAME = "";
-    
+
     @Autowired
+    @SerializableProxy
     private VaadinSecurity security;
-    
+
     private TextField       username;
     private PasswordField   password;
+
 
     public LoginView() {
         setSizeFull();
@@ -49,18 +52,18 @@ public class LoginView extends VerticalLayout implements View {
         setComponentAlignment(loginForm, Alignment.MIDDLE_CENTER);
 
     }
-    
-    
-    
+
+
+
     public void enter(ViewChangeEvent event) {
-    	Authentication auth = security.getAuthentication();
+        Authentication auth = security.getAuthentication();
         if(auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
-        	username.setValue(auth.getName());
+            username.setValue(auth.getName());
         }
-        
+
         username.setValue("NeverForgetMe");
         username.focus();
-        
+
     }
 
     private Component buildLoginForm() {
@@ -92,7 +95,7 @@ public class LoginView extends VerticalLayout implements View {
         password = new PasswordField("Passwort");
         password.setIcon(FontAwesome.LOCK);
         password.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
-        
+
         final Button signin = new Button();
         signin.addStyleName(ValoTheme.BUTTON_PRIMARY);
         signin.setClickShortcut(KeyCode.ENTER);
@@ -107,13 +110,13 @@ public class LoginView extends VerticalLayout implements View {
             private static final long serialVersionUID = 1L;
 
             public void buttonClick(final ClickEvent event) {
-                
 
-            	UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username.getValue(), "");
-            	
-            	
+
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username.getValue(), "");
+
+
                 try {
-                	security.login(auth);
+                    security.login(auth);
                     getUI().close();
                 } catch(AuthenticationException e) {
                     e.printStackTrace();
@@ -122,7 +125,7 @@ public class LoginView extends VerticalLayout implements View {
                 }
             }
         });
-        
+
         return fields;
     }
 
