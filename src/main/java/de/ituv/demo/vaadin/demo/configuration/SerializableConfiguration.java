@@ -1,4 +1,4 @@
-package de.ituv.demo.vaadin.demo;
+package de.ituv.demo.vaadin.demo.configuration;
 
 import org.jdal.aop.SerializableProxyAdvisor;
 import org.jdal.aop.config.SerializableAnnotationBeanPostProcessor;
