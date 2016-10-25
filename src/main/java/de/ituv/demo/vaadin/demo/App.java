@@ -2,6 +2,7 @@ package de.ituv.demo.vaadin.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -18,8 +19,14 @@ import com.vaadin.spring.boot.annotation.EnableVaadinServlet;
 @EnableVaadinServlet
 @EnableRedisHttpSession
 public class App {
-    public static void main( String[] args )
-    {
-    	SpringApplication.run(App.class, args);
+
+    @Bean
+    public SessionSerializer springSessionDefaultRedisSerializer() {
+        return new SessionSerializer();
     }
+
+    public static void main( String[] args ) {
+        SpringApplication.run(App.class, args);
+    }
+
 }
